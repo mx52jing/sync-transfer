@@ -1,0 +1,7 @@
+/node_modules
+*/dist
+/sync-transfer
+*/.idea
+/.DS_Store
+/*.local
+
