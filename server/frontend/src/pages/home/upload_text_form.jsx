@@ -6,7 +6,7 @@ import {
   showUploadingDialog,
   showUploadTextSuccessDialog,
   uploadText,
-} from "../../pages/home/components";
+} from "./components";
 import { AppContext } from "../../shared/app_context";
 import { Center } from "../../components/center";
 
@@ -18,7 +18,9 @@ export const UploadTextForm = () => {
     showUploadingDialog();
     const { data: { url } } = await uploadText(text)
     showUploadTextSuccessDialog({
-      context, content: (addr) => addr && `http://${addr}:${import.meta.env.VITE_BACKEND_PORT}/static/downloads?type=text&url=http://${addr + `:${import.meta.env.VITE_BACKEND_PORT}` + encodeURIComponent(url)}`
+      context, content: (addr) => {
+        return addr && `http://${addr}:${import.meta.env.VITE_BACKEND_PORT}/static/downloads?type=text&url=http://${addr + `:${import.meta.env.VITE_BACKEND_PORT}` + encodeURIComponent(url)}`
+      }
     });
   };
   return (

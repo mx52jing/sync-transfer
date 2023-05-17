@@ -10,7 +10,7 @@ import (
 func main() {
 	go server.Run()
 	// Create UI with basic HTML passed via data URI
-	ui, err := lorca.New("http://127.0.0.1:9527/static/index.html", "", 480, 320, "--disable-translate", "--remote-allow-origins=*")
+	ui, err := lorca.New("http://127.0.0.1:9527/static/index.html", "", 800, 600, "--disable-translate", "--remote-allow-origins=*")
 	if err != nil {
 		log.Fatal(err)
 	}
