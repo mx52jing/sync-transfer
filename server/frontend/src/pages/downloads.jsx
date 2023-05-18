@@ -1,3 +1,4 @@
+import ClipboardJS from 'clipboard';
 import { useQuery } from "../hooks/use_query";
 import { BigTextarea, Button, Header, Layout } from "./home/components";
 import styled from "styled-components";
@@ -14,13 +15,28 @@ export const Downloads = () => {
   const type = normalizeType(query.type)
   const [text, setText] = useState("")
   useEffect(() => {
-    if (type === "text") {
-      http.get(query.url).then(({ data }) => {
-        setText(data)
-      })
-    }
+    (async () => {
+      if(type !== "text") return;
+      const res = await http.get(query.url)
+      setText(res)
+    })()
   }, [type])
+  const handleCopyClick = () => {
+    if(!text) return;
+    const clipboard = new ClipboardJS('.copy-button', {
+      text: () => text
+    });
+    clipboard.on('success', () => {
+      alert("复制成功")
+      clipboard.destroy();
+    });
+    clipboard.on('error', () => {
+      alert("复制失败")
+      clipboard.destroy();
+    });
 
+    clipboard.onClick({ trigger: document.querySelector('.copy-button') });
+  };
   let node = null
   switch (type) {
     case 'text':
@@ -29,7 +45,7 @@ export const Downloads = () => {
           <BigTextarea readOnly value={text} />
           <Space />
           <Center virtical>
-            <Button>请手动复制上面文本</Button>
+            <Button className="copy-button" onClick={handleCopyClick}>点击复制</Button>
           </Center>
         </div>
       )

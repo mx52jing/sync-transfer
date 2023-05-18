@@ -33,6 +33,7 @@ func TextsController(ctx *gin.Context) {
 	if err != nil {
 		fmt.Println("os.WriteFile", err)
 		return
-	}	
-	ctx.JSON(http.StatusOK, gin.H{"code": utils.SUCCESS_CODE, "data": gin.H{"url": fullPath }})
+	}
+	url := filepath.Join("uploads", str + ".txt")
+	ctx.JSON(http.StatusOK, gin.H{"code": utils.SUCCESS_CODE, "data": gin.H{ "url": "/" + url }})
 }

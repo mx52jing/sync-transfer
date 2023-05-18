@@ -17,9 +17,10 @@ export const UploadTextForm = () => {
     e.preventDefault();
     showUploadingDialog();
     const { data: { url } } = await uploadText(text)
+    const port = import.meta.env.VITE_BACKEND_PORT;
     showUploadTextSuccessDialog({
       context, content: (addr) => {
-        return addr && `http://${addr}:${import.meta.env.VITE_BACKEND_PORT}/static/downloads?type=text&url=http://${addr + `:${import.meta.env.VITE_BACKEND_PORT}` + encodeURIComponent(url)}`
+        return addr && `http://${addr}:${port}/static/downloads?type=text&url=http://${addr + `:${port}/api/v1` + encodeURIComponent(url)}`
       }
     });
   };

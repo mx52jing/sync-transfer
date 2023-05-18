@@ -23,6 +23,7 @@ func Run() {
 		{
 			v1Group.GET("/addresses", controller.AddressController)
 			v1Group.GET("/qrcodes", controller.QrcodesController)
+			v1Group.GET("/uploads/:path", controller.UploadsController)
 			v1Group.POST("/texts", middleware.GenUploadsDir, controller.TextsController)
 		}
 		// 处理 404 访问不存在的路由时的情况
